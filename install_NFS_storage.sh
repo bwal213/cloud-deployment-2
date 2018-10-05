@@ -1,8 +1,18 @@
-sudo yum -y install nfs-utils nfs-utils-lib
-sudo yum -y install portmap
-/etc/init.d/portmap start
-/etc/init.d/nfs start
-chkconfig --level 35 portmap on
-chkconfig --level 35 nfs on
-sudo mkdir /scratch
-sudo echo"/scratch *(rw,sync,no_root_squash)" > /etc/exports 
+sudo yum -y install nfs-utils
+sudo mkdir /var/scratch
+sudo chmod -R 755 /var/nfsshare
+sudo chown nfsnobody:nfsnobody /var/scratch
+sudo systemctl enable rpcbind
+sudo systemctl enable nfs-server
+sudo systemctl enable nfs-lock
+sudo systemctl enable nfs-idmap
+sudo systemctl start rpcbind
+sudo systemctl start nfs-server
+sudo systemctl start nfs-lock
+sudo systemctl start nfs-idmap
+sudo exportfs -p /var/scratch 192.168.1.*(rw,sync,no_root_squash) 
+sudo exportfs -ra
+sudo firewall-cmd --permanent --zone=public --add-service=nfs
+sudo firewall-cmd --permanent --zone=public --add-service=mountd
+sudo firewall-cmd --permanent --zone=public --add-service=rpc-bind
+sudo firewall-cmd --reload
