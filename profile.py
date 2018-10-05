@@ -9,7 +9,7 @@ import geni.rspec.pg as pg
 import geni.rspec.igext
 
 # Describe the parameter(s) this profile script can accept.
-portal.context.defineParameter( "n", "Number of VMs", portal.ParameterType.INTEGER, 4 )
+portal.context.defineParameter( "n", "Number of VMs", portal.ParameterType.INTEGER, 6 )
 #portal.context.defineParameter( "os", "disk image", portal.ParameterType.DISK_IMAGE, "urn:publicid:IDN+emulab.net+image+emulab-ops:CENTOS7-64-STD")
 
 # Retrieve the values the user specifies during instantiation.
@@ -19,8 +19,8 @@ params = portal.context.bindParameters()
 request = portal.context.makeRequestRSpec()
 
 # Check parameter validity.
-if params.n < 1 or params.n > 4:
-    portal.context.reportError( portal.ParameterError( "You must choose at least 1 and no more than 4 VMs." ) )
+if params.n < 4 or params.n > 13:
+    portal.context.reportError( portal.ParameterError( "You must choose at least 4 and no more than 12 VMs." ) )
 
 link = request.LAN("lan")
     
