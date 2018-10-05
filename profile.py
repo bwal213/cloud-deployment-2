@@ -30,19 +30,19 @@ for i in range( params.n ):
     
   if i == 0:
     node = request.XenVM("head")
-    node.addService(pg.Execute(shell="sh", command="sudo chmod 755 /local/repository/install_NSF_head.sh"))
-    node.addService(pg.Execute(shell="sh", command="sudo /local/repository/install_NSF_head.sh"))
+    node.addService(pg.Execute(shell="sh", command="sudo chmod 755 /local/repository/install_NFS_head.sh"))
+    node.addService(pg.Execute(shell="sh", command="sudo /local/repository/install_NFS_head.sh"))
     node.routable_control_ip = "true"
   elif i == 1:
     node = request.XenVM("metadata")
   elif i == 2:
     node = request.XenVM("storage")
-    node.addService(pg.Execute(shell="sh", command="sudo chmod 755 /local/repository/install_NSF_storage.sh"))
-    node.addService(pg.Execute(shell="sh", command="sudo /local/repository/install_NSF_storage.sh"))
+    node.addService(pg.Execute(shell="sh", command="sudo chmod 755 /local/repository/install_NFS_storage.sh"))
+    node.addService(pg.Execute(shell="sh", command="sudo /local/repository/install_NFS_storage.sh"))
   else:
     node = request.XenVM("compute-" + str(i-2))
-    node.addService(pg.Execute(shell="sh", command="sudo chmod 755 /local/repository/install_NSF_client.sh"))
-    node.addService(pg.Execute(shell="sh", command="sudo /local/repository/install_NSF_client.sh"))
+    node.addService(pg.Execute(shell="sh", command="sudo chmod 755 /local/repository/install_NFS_client.sh"))
+    node.addService(pg.Execute(shell="sh", command="sudo /local/repository/install_NFS_client.sh"))
     node.cores = 2
     node.ram = 4096
     
