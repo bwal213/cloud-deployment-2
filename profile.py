@@ -26,10 +26,29 @@ link = request.LAN("lan")
     
 for i in range( params.n ):
     # Create a XenVM and add it to the RSpec.
-    node = request.XenVM( "node-" + str( i + 1) )
+    #node = request.XenVM( "node-" + str( i + 1) )
+    
+  if i == 0:
+    node = request.XenVM("head")
+    node.addService(pg.Execute(shell="sh", command="sudo chmod 755 /local/repository/install_NSF_head.sh"))
+    node.addService(pg.Execute(shell="sh", command="sudo /local/repository/install_NSF_head.sh"))
+    node.routable_control_ip = "true"
+  elif i == 1:
+    node = request.XenVM("metadata")
+  elif i == 2:
+    node = request.XenVM("storage")
+    node.addService(pg.Execute(shell="sh", command="sudo chmod 755 /local/repository/install_NSF_storage.sh"))
+    node.addService(pg.Execute(shell="sh", command="sudo /local/repository/install_NSF_storage.sh"))
+  else:
+    node = request.XenVM("compute-" + str(i-2))
+    node.addService(pg.Execute(shell="sh", command="sudo chmod 755 /local/repository/install_NSF_client.sh"))
+    node.addService(pg.Execute(shell="sh", command="sudo /local/repository/install_NSF_client.sh"))
+    node.cores = 2
+    node.ram = 4096
+    
     node.disk_image = "urn:publicid:IDN+emulab.net+image+emulab-ops:CENTOS7-64-STD"
-    if (i + 1) == 1:
-        node.routable_control_ip = True
+    #if (i + 1) == 1:
+    #    node.routable_control_ip = True
     iface = node.addInterface("if1")
     
     # Specify the component id and the IPv4 address
