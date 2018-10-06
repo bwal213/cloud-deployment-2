@@ -17,3 +17,12 @@ Suggested changes:
 -pick how to install mpi / if storage needs to be re-mounted from itself, or the shared directory needs to be moved to "/mnt/source".
 
 -last understanding is that mpi only installed on head, then accessed through "mnt/storage", the shared directory.
+
+
+
+Guides used:
+
+https://www.howtoforge.com/nfs-server-and-client-on-centos-7
+
+http://edtechchris.com/2017/02/15/centos-7-firewall-cli-commands/
+
