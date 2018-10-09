@@ -30,6 +30,8 @@ for i in range( params.n ):
     
   if i == 0:
     node = request.XenVM("head")
+    node.addService(pg.Execute(shell="sh", command="sudo chmod 755 /local/repository/setup_firewall.sh"))
+    node.addService(pg.Execute(shell="sh", command="sudo /local/repository/setup_firewall.sh"))
     node.addService(pg.Execute(shell="sh", command="sudo chmod 755 /local/repository/install_NFS_head.sh"))
     node.addService(pg.Execute(shell="sh", command="sudo /local/repository/install_NFS_head.sh"))
     node.routable_control_ip = "true"
@@ -37,6 +39,8 @@ for i in range( params.n ):
     node = request.XenVM("metadata")
   elif i == 2:
     node = request.XenVM("storage")
+    node.addService(pg.Execute(shell="sh", command="sudo chmod 755 /local/repository/setup_firewall.sh"))
+    node.addService(pg.Execute(shell="sh", command="sudo /local/repository/setup_firewall.sh"))
     node.addService(pg.Execute(shell="sh", command="sudo chmod 755 /local/repository/install_NFS_storage.sh"))
     node.addService(pg.Execute(shell="sh", command="sudo /local/repository/install_NFS_storage.sh"))
   else:
