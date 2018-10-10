@@ -46,7 +46,7 @@ for i in range( params.n ):
   else:
     node = request.XenVM("compute-" + str(i-2))
     node.addService(pg.Execute(shell="sh", command="sudo chmod 755 /local/repository/install_NFS_client.sh"))
-    node.addService(pg.Execute(shell="sh", command="sudo /local/repository/install_NFS_client.sh"))
+    node.addService(pg.Execute(shell="sh", command="sleep 3m && sudo /local/repository/install_NFS_client.sh"))
     node.cores = 2
     node.ram = 4096
     
